@@ -28,6 +28,7 @@ def change_name(file_name):
             break
     f.close()
     name = "[{0}]{1}.txt".format(author, title)
+    name  = ''.join([i if ord(i) < 128 else ' ' for i in name])
     if name == '[].txt':
         os.remove(file_name)
         print "      delete"
@@ -35,7 +36,7 @@ def change_name(file_name):
         os.rename(file_name, "data/" + name)
         print "      rename {0}".format(name)
 
-download(10)
+download(40)
 for file_name in glob.glob("download/*"):
     print file_name
     try:
