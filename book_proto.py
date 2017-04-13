@@ -1,13 +1,15 @@
 PAGESIZE = 400
-
+from nltk.stem.porter import PorterStemmer
+porter_stemmer = PorterStemmer()
 PUNCTUATION = '1234567890!@#$%^&*()_+-=<>?,./|'
 
 def normalize(word):
+
     word = word.lower()
     for char in PUNCTUATION:
         word = word.replace(char, '')
     word = word.replace('\n', '')
-
+    word = porter_stemmer.stem(word)
     return word
 
 
@@ -18,12 +20,7 @@ class Book:
         self.word_count = 0
         self.unic_count = 0
         self.page_count = 0
-        count_str = 0
-        f = open(file_name, "r")
-        for _ in f:
-            count_str += 1
-        f.close()
-        PAGESIZE = count_str/50
+
         f = open(file_name, "r")
         wordset = set()
         temp_count = 0
